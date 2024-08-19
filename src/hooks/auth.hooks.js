@@ -25,6 +25,28 @@ export const useSignUp = () => {
   return signUp;
 };
 
+export const useSignIn = () => {
+  const queryClient = useQueryClient();
+
+  const signIn = useMutation({
+    mutationFn: async ({ email, password }) => {
+      const { data } = await apiInstance.post("/auth/sign-in", {
+        email,
+        password,
+      });
+      const token = data.data.token;
+      console.log(data);
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["user"] });
+    },
+  });
+  return signIn;
+};
+
 export const useLoggedInUser = () => {
   const query = useQuery({
     queryKey: ["user"],
