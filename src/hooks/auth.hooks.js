@@ -52,7 +52,7 @@ export const useLoggedInUser = () => {
     queryKey: ["user"],
     queryFn: async () => {
       const { data } = await apiInstance.get("/auth/me");
-      if (!data.isLoggedIn) return null;
+      if (!data.isLoggedIn) return false;
 
       return data.data.user;
     },

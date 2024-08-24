@@ -72,7 +72,7 @@ const SignInPage = () => {
           )}
           <div className="form-row">
             <Button fullWidth variant="contained" type="submit">
-              Create Account
+              Sign In
             </Button>
           </div>
         </Box>
