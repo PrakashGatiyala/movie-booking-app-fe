@@ -4,10 +4,12 @@ import {
   useCreateTheatre,
   useGetAllTheaters,
 } from "../../../../hooks/theatre.hooks";
+import "./create-theatre.style.css";
+
 const CreateTheatre = () => {
   const { data: theatres } = useGetAllTheaters();
   return (
-    <div style={{ display: "flex" }}>
+    <div className="create-theatre-container">
       <div style={{ width: "50%" }}>
         <CreateTheatreForm />
       </div>
