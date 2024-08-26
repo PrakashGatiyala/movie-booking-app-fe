@@ -3,6 +3,8 @@ import "./admin-dashboard.style.css";
 // Tabs
 import CreateTheatre from "./components/admin/create-theatre";
 import CreateMovie from "./components/admin/create-movie";
+import CreateTheatreHall from "./components/admin/create-theatre-hall";
+import CreateShow from "./components/admin/create-show";
 /* Admin can create theatre/movies/ mapping */
 const AdminDashboard = () => {
   const [selectedTab, setSelectedTab] = useState("create-theatre");
@@ -32,11 +34,9 @@ const AdminDashboard = () => {
       </div>
       <div className="main-content">
         {selectedTab === "create-theatre" && <CreateTheatre />}
-        {selectedTab === "create-theatre-halls" && (
-          <div>Create Theatre Halls</div>
-        )}
+        {selectedTab === "create-theatre-halls" && <CreateTheatreHall />}
         {selectedTab === "create-movies" && <CreateMovie />}
-        {selectedTab === "create-show" && <div>Create Show</div>}
+        {selectedTab === "create-show" && <CreateShow />}
       </div>
     </div>
   );
