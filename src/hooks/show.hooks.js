@@ -33,7 +33,7 @@ export const useGetShowsByMovieID = (movieId) => {
     queryKey: ["showsByMovie", movieId],
     enabled: !!movieId,
     queryFn: async () => {
-      const { data } = await apiInstance.get(`/admin/shows/movie/${movieId}`);
+      const { data } = await apiInstance.get(`/api/shows/movie/${movieId}`);
       return data.data.shows;
     },
   });
