@@ -35,3 +35,17 @@ export const useGetAllTheatreHalls = (theatreId) => {
   });
   return theatreHalls;
 };
+
+export const useGetTheatreHallById = (theatreHallId) => {
+  const theatreHall = useQuery({
+    queryKey: ["theatreHall", theatreHallId],
+    enabled: !!theatreHallId,
+    queryFn: async () => {
+      const { data } = await apiInstance.get(
+        `/api/theatre-hall/${theatreHallId}`
+      );
+      return data.data.theatreHall;
+    },
+  });
+  return theatreHall;
+};

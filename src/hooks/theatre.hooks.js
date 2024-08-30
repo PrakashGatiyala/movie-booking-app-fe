@@ -35,7 +35,7 @@ export const useGetAllTheaters = () => {
   const theaters = useQuery({
     queryKey: ["theatres"],
     queryFn: async () => {
-      const { data } = await apiInstance.get("/admin/theatres");
+      const { data } = await apiInstance.get("/api/theatres");
       return data.data.theatres;
     },
   });

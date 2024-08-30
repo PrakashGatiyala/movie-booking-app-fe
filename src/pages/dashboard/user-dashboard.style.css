@@ -1,40 +1,74 @@
 .user-dashboard-container {
-  display: flex;
-  width: 100vw;
-  min-height: 100vh;
-}
-
-.side-bar {
-  width: 200px;
-  height: 100vh;
-  background-color: black;
-  color: white;
   padding: 20px;
-  line-height: 25px;
-  position: fixed;
+  display: flex;
+  gap: 10px;
 }
-
-.main-content {
-  margin-left: 200px;
-  width: calc(100% - 200px);
-  min-height: 100vh;
-  /* overflow-x: hidden; */
+.user-dashboard-container .seat-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 10px;
 }
-
-.side-bar .side-bar-item {
-  margin-top: 10px;
-}
-
-.side-bar .side-bar-item ul {
-  list-style-type: none;
-}
-
-.side-bar .side-bar-item ul li {
+.user-dashboard-container .seat-container .seat {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  border-radius: 10px;
-  padding: 5px 10px;
+  font-size: 10px;
+  padding: 10px;
+  border: 1px solid #1ea83c;
+  color: #1ea83c;
+  /* line-height: 25px; */
+  font-weight: 400;
+}
+.user-dashboard-container .seat-container .seat:hover {
+  background-color: #1ea83c;
+  color: white;
+}
+.user-dashboard-container .seat-container .seat.selectedSeat {
+  background-color: #1ea83c;
+  color: white;
 }
 
-.side-bar .side-bar-item ul li:hover {
-  background-color: #333;
+.user-dashboard-container .action-button-container .payButton {
+  justify-content: center;
+  align-items: center;
+  width: 49%;
+  height: 100%;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 40px;
+  max-width: 400px;
+  background: #f84464;
+  color: white;
+}
+
+.user-dashboard-container .action-button-container .payButton:hover {
+  background: #f84464;
+  color: white;
+}
+.user-dashboard-container .action-button-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.user-dashboard-container .action-button-container .cancelButton {
+  justify-content: center;
+  align-items: center;
+  width: 49%;
+  height: 100%;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.16);
+  border-radius: 8px;
+  cursor: pointer;
+  min-height: 40px;
+  max-width: 400px;
+  color: #f84464;
+  border: 1px solid #f84464;
 }

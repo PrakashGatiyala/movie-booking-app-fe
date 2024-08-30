@@ -31,7 +31,7 @@ export const useGetAllMovies = () => {
   const movies = useQuery({
     queryKey: ["movies"],
     queryFn: async () => {
-      const { data } = await apiInstance.get("/admin/movies");
+      const { data } = await apiInstance.get("/api/movies");
       return data.data.movies;
     },
   });
