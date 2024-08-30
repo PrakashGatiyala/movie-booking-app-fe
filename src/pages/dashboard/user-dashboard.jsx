@@ -25,6 +25,7 @@ const UserDashboard = () => {
   const [selectedSeat, setSelectedSeat] = useState(null);
   const { data: shows } = useGetShowsByMovieID(selectedMovieId);
   const [isBookingError, setIsBookingError] = useState(false);
+  const [bookingDetails, setBookingDetails] = useState(null);
 
   const showObj = useMemo(() => {
     if (!shows || !selectedShowId) return null;
@@ -34,6 +35,7 @@ const UserDashboard = () => {
   useEffect(() => {
     setSelectedSeat(null);
     setIsBookingError(false);
+    setBookingDetails(null);
   }, [selectedShowId]);
 
   console.log(selectedShowId);
@@ -44,7 +46,7 @@ const UserDashboard = () => {
         showId: selectedShowId,
         seatNumber: selectedSeat,
       });
-      const order = data.data.booking;
+      const order = data.data.order;
       console.log(order);
 
       const options = {
@@ -53,13 +55,19 @@ const UserDashboard = () => {
         currency: order.currency,
         name: "Movie Booking",
         order_id: order.id,
-        // handler: function (response) {
-        //   alert(response.razorpay_payment_id);
-        //   alert(response.razorpay_order_id);
-        //   alert(response.razorpay_signature);
-        //   POST: /booking/verify { razorpay_payment_id, razorpay_signature, selectedShowId,  selectedSeat }
-        //   Thanks for booking with us
-        // },
+        handler: async function (response) {
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature);
+          // POST: /booking/verify { razorpay_payment_id, razorpay_signature, selectedShowId,  selectedSeat }
+          // Thanks for booking with us
+          const { data } = await apiInstance.post("/booking/verify-payment", {
+            paymentId: response.razorpay_payment_id,
+            orderId: response.razorpay_order_id,
+            signature: response.razorpay_signature,
+          });
+          setBookingDetails(data.data.booking);
+        },
       };
       const rzp1 = new Razorpay(options);
       rzp1.open();
@@ -69,6 +77,12 @@ const UserDashboard = () => {
       console.log(error);
     }
   }
+
+  // TODO: Ticket Generation
+  /* Theatre Name           Seat Number:
+   *  Theatre Hall No.       Show Time:
+   *  Booking Id:
+   */
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -164,6 +178,7 @@ const UserDashboard = () => {
                       onClick={() => {
                         setSelectedSeat(index + 1);
                         setIsBookingError(false);
+                        setBookingDetails(null);
                       }}
                       className={`seat ${
                         index + 1 === selectedSeat ? "selectedSeat" : ""
@@ -189,6 +204,7 @@ const UserDashboard = () => {
                 onClick={() => {
                   setSelectedSeat(null);
                   setIsBookingError(false);
+                  setBookingDetails(null);
                 }}
               >
                 Cancel
@@ -197,6 +213,21 @@ const UserDashboard = () => {
             <div>
               {isBookingError && (
                 <Typography color="error">{isBookingError}</Typography>
+              )}
+            </div>
+            <div>
+              {bookingDetails && (
+                <div>
+                  <Typography color="success">
+                    Booking Successful. Booking ID: {bookingDetails._id}
+                  </Typography>
+                  <Typography>
+                    Payment ID: {bookingDetails.paymentId}
+                  </Typography>
+                  <Typography>
+                    Seat Number: {bookingDetails.seatNumber}
+                  </Typography>
+                </div>
               )}
             </div>
           </div>
